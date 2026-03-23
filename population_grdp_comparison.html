@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>권역별 재학생 인구·GRDP 비교</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    background: #f5f7fa;
+    color: #333;
+    min-height: 100vh;
+  }
+  .header {
+    background: #1e3a5f;
+    color: white;
+    padding: 20px 32px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .header h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+  .header p  { font-size: 13px; opacity: 0.75; margin-top: 4px; }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 18px 32px;
+    background: white;
+    border-bottom: 1px solid #e0e6ef;
+    flex-wrap: wrap;
+  }
+  .control-group { display: flex; align-items: center; gap: 10px; }
+  .control-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    white-space: nowrap;
+  }
+  .btn-group { display: flex; gap: 4px; }
+  .btn-group button {
+    padding: 7px 16px;
+    border: 1.5px solid #c5d3e8;
+    background: white;
+    color: #444;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .btn-group button:hover { background: #eef2f9; border-color: #3a6bc4; color: #3a6bc4; }
+  .btn-group button.active {
+    background: #1e3a5f;
+    border-color: #1e3a5f;
+    color: white;
+    font-weight: 600;
+  }
+
+  .chart-area {
+    padding: 24px 32px 32px;
+  }
+  .chart-wrapper {
+    background: white;
+    border-radius: 12px;
+    padding: 24px 24px 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  .chart-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e3a5f;
+    margin-bottom: 6px;
+  }
+  .chart-subtitle {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 20px;
+  }
+  canvas { width: 100% !important; }
+
+  .note {
+    margin-top: 14px;
+    font-size: 11.5px;
+    color: #999;
+    line-height: 1.6;
+  }
+  .legend-area {
+    display: flex;
+    gap: 20px;
+    margin-top: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #555; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>권역별 재학생 인구·GRDP 비교 (2016–2025)</h1>
+  <p>거점대학 대상 · 지역별 인구 및 GRDP 대비 재학생 규모 추이</p>
+</div>
+
+<div class="controls">
+  <div class="control-group">
+    <label>지표 기준</label>
+    <div class="btn-group" id="indicatorGroup">
+      <button class="active" data-val="인구">인구 기준</button>
+      <button data-val="명목">명목 GRDP 기준</button>
+      <button data-val="실질">실질 GRDP 기준</button>
+    </div>
+  </div>
+  <div class="control-group">
+    <label>대상</label>
+    <div class="btn-group" id="targetGroup">
+      <button class="active" data-val="학부생">학부생</button>
+      <button data-val="대학원생">대학원생</button>
+      <button data-val="전체">전체</button>
+    </div>
+  </div>
+  <div class="control-group">
+    <label>비교 기간</label>
+    <div class="btn-group" id="periodGroup">
+      <button class="active" data-val="all">2016~2025</button>
+      <button data-val="recent">2023~2025</button>
+    </div>
+  </div>
+</div>
+
+<div class="chart-area">
+  <div class="chart-wrapper">
+    <div class="chart-title" id="chartTitle">인구 기준 · 학부생</div>
+    <div class="chart-subtitle" id="chartSubtitle">인구 1,000명 당 학생 수</div>
+    <canvas id="myChart" height="420"></canvas>
+    <div class="legend-area" id="legendArea"></div>
+    <div class="note" id="noteArea"></div>
+  </div>
+</div>
+
+<script>
+const DATA = {"students":{"수도권":{"2016":{"학부생":114868,"대학원생":39742,"전체":154610},"2017":{"학부생":114379,"대학원생":38720,"전체":153099},"2018":{"학부생":114917,"대학원생":38011,"전체":152928},"2019":{"학부생":115632,"대학원생":37810,"전체":153442},"2020":{"학부생":114263,"대학원생":38606,"전체":152869},"2021":{"학부생":112965,"대학원생":42248,"전체":155213},"2022":{"학부생":111470,"대학원생":43471,"전체":154941},"2023":{"학부생":117307,"대학원생":44081,"전체":161388},"2024":{"학부생":115342,"대학원생":45471,"전체":160813},"2025":{"학부생":120636,"대학원생":46455,"전체":167091}},"동남권":{"2016":{"학부생":39320,"대학원생":9152,"전체":48472},"2017":{"학부생":38124,"대학원생":9025,"전체":47149},"2018":{"학부생":37609,"대학원생":8957,"전체":46566},"2019":{"학부생":36738,"대학원생":8733,"전체":45471},"2020":{"학부생":36567,"대학원생":8415,"전체":44982},"2021":{"학부생":35362,"대학원생":8858,"전체":44220},"2022":{"학부생":35197,"대학원생":9283,"전체":44480},"2023":{"학부생":36501,"대학원생":9202,"전체":45703},"2024":{"학부생":36041,"대학원생":9596,"전체":45637},"2025":{"학부생":38217,"대학원생":9886,"전체":48103}},"충청권":{"2016":{"학부생":37191,"대학원생":13109,"전체":50300},"2017":{"학부생":36176,"대학원생":12871,"전체":49047},"2018":{"학부생":35901,"대학원생":12833,"전체":48734},"2019":{"학부생":35382,"대학원생":12657,"전체":48039},"2020":{"학부생":34768,"대학원생":12652,"전체":47420},"2021":{"학부생":34180,"대학원생":13202,"전체":47382},"2022":{"학부생":33413,"대학원생":13480,"전체":46893},"2023":{"학부생":34224,"대학원생":13694,"전체":47918},"2024":{"학부생":34452,"대학원생":14275,"전체":48727},"2025":{"학부생":34932,"대학원생":14502,"전체":49434}},"호남권":{"2016":{"학부생":39458,"대학원생":8513,"전체":47971},"2017":{"학부생":38287,"대학원생":8234,"전체":46521},"2018":{"학부생":38493,"대학원생":7933,"전체":46426},"2019":{"학부생":38169,"대학원생":7601,"전체":45770},"2020":{"학부생":38188,"대학원생":7641,"전체":45829},"2021":{"학부생":37836,"대학원생":7946,"전체":45782},"2022":{"학부생":37054,"대학원생":7997,"전체":45051},"2023":{"학부생":37570,"대학원생":8116,"전체":45686},"2024":{"학부생":36700,"대학원생":8371,"전체":45071},"2025":{"학부생":37960,"대학원생":8276,"전체":46236}},"대경권":{"2016":{"학부생":25174,"대학원생":6365,"전체":31539},"2017":{"학부생":24545,"대학원생":5996,"전체":30541},"2018":{"학부생":24312,"대학원생":5704,"전체":30016},"2019":{"학부생":24150,"대학원생":5403,"전체":29553},"2020":{"학부생":23745,"대학원생":5448,"전체":29193},"2021":{"학부생":22908,"대학원생":5813,"전체":28721},"2022":{"학부생":22313,"대학원생":6020,"전체":28333},"2023":{"학부생":23067,"대학원생":6140,"전체":29207},"2024":{"학부생":23037,"대학원생":6247,"전체":29284},"2025":{"학부생":24039,"대학원생":6456,"전체":30495}}},"grdp":{"수도권":{"2016":{"인구":25390486,"명목":927344768,"실질":964210953},"2017":{"인구":25519439,"명목":993249280,"실질":1007014534},"2018":{"인구":25713241,"명목":1046478910,"실질":1051644331},"2019":{"인구":25892678,"명목":1066163549,"실질":1081824471},"2020":{"인구":26043325,"명목":1091322357,"실질":1091322357},"2021":{"인구":26081700,"명목":1175232554,"실질":1145176667},"2022":{"인구":26124421,"명목":1229066121,"실질":1182906101},"2023":{"인구":26225829,"명목":1265405067,"실질":1199985778},"2024":{"인구":26307956,"명목":1352044474,"실질":1229223788},"2025":{"인구":26307956,"명목":1352044474,"실질":1229223788}},"동남권":{"2016":{"인구":7946150,"명목":281717044,"실질":292160361},"2017":{"인구":7919288,"명목":284052590,"실질":291174128},"2018":{"인구":7895744,"명목":287377956,"실질":294185678},"2019":{"인구":7863593,"명목":293005563,"실질":297675949},"2020":{"인구":7817495,"명목":280687323,"실질":280687323},"2021":{"인구":7751019,"명목":304502318,"실질":290129385},"2022":{"인구":7687105,"명목":325648052,"실질":298740577},"2023":{"인구":7658184,"명목":345054410,"실질":309015078},"2024":{"인구":7628394,"명목":366264372,"실질":318544080},"2025":{"인구":7628394,"명목":366264372,"실질":318544080}},"충청권":{"2016":{"인구":5513922,"명목":225432684,"실질":228958648},"2017":{"인구":5575873,"명목":243459166,"실질":242850956},"2018":{"인구":5625939,"명목":251471850,"실질":251028550},"2019":{"인구":5654967,"명목":254575718,"실질":258008582},"2020":{"인구":5651092,"명목":259303899,"실질":259303899},"2021":{"인구":5646691,"명목":280659380,"실질":272871064},"2022":{"인구":5674458,"명목":292459812,"실질":281133482},"2023":{"인구":5714410,"명목":299408839,"실질":281725892},"2024":{"인구":5741820,"명목":316135871,"실질":283035719},"2025":{"인구":5741820,"명목":316135871,"실질":283035719}},"호남권":{"2016":{"인구":5130742,"명목":165909484,"실질":173290055},"2017":{"인구":5114665,"명목":171475362,"실질":177239868},"2018":{"인구":5098601,"명목":175192345,"실질":179587875},"2019":{"인구":5084696,"명목":179325074,"실질":183719641},"2020":{"인구":5069146,"명목":183263798,"실질":183263798},"2021":{"인구":5040439,"명목":200510605,"실질":190603732},"2022":{"인구":5014651,"명목":206677167,"실질":191214850},"2023":{"인구":5002249,"명목":213968574,"실질":192983473},"2024":{"인구":4981345,"명목":225599963,"실질":198005355},"2025":{"인구":4981345,"명목":225599963,"실질":198005355}},"대경권":{"2016":{"인구":5143171,"명목":169766605,"실질":174877479},"2017":{"인구":5130099,"명목":174449698,"실질":175685440},"2018":{"인구":5117314,"명목":176157314,"실질":176654729},"2019":{"인구":5098094,"명목":176294449,"실질":178807128},"2020":{"인구":5055457,"명목":174670729,"실질":174670729},"2021":{"인구":5023225,"명목":185250747,"실질":180539670},"2022":{"인구":4987225,"명목":191738695,"실질":182682525},"2023":{"인구":4969068,"명목":199771364,"실질":185527169},"2024":{"인구":4948334,"명목":209222713,"실질":185980811},"2025":{"인구":4948334,"명목":209222713,"실질":185980811}}},"years":[2016,2017,2018,2019,2020,2021,2022,2023,2024,2025]};
+
+const REGIONS = ['수도권', '동남권', '충청권', '호남권', '대경권'];
+const YEARS   = DATA.years.map(String);
+
+const REGION_COLORS = {
+  '수도권': { bg: 'rgba(30,  90, 180, 0.75)', border: 'rgba(30,  90, 180, 1)' },
+  '동남권': { bg: 'rgba(220, 80,  60, 0.75)', border: 'rgba(220, 80,  60, 1)' },
+  '충청권': { bg: 'rgba(40, 170, 110, 0.75)', border: 'rgba(40, 170, 110, 1)' },
+  '호남권': { bg: 'rgba(230,150,  20, 0.75)', border: 'rgba(230,150,  20, 1)' },
+  '대경권': { bg: 'rgba(130, 60, 200, 0.75)', border: 'rgba(130, 60, 200, 1)' },
+};
+
+// Indicator metadata
+const INDICATOR_META = {
+  '인구': {
+    multiplier: 1000,
+    divisorKey: '인구',
+    unitLabel: '인구 1,000명 당 학생 수',
+    noteLabel: '산식: 1,000 × 학생 수 ÷ 권역 인구',
+    yLabel: '학생 수 (명 / 인구 1,000명)',
+  },
+  '명목': {
+    multiplier: 1000,
+    divisorKey: '명목',
+    unitLabel: '명목 GRDP 10억당 학생 수',
+    noteLabel: '산식: 1,000 × 학생 수 ÷ 권역 명목 GRDP (백만 원)',
+    yLabel: '학생 수 (명 / 명목 GRDP 10억 원)',
+  },
+  '실질': {
+    multiplier: 1000,
+    divisorKey: '실질',
+    unitLabel: '실질 GRDP 10억당 학생 수',
+    noteLabel: '산식: 1,000 × 학생 수 ÷ 권역 실질 GRDP (백만 원)',
+    yLabel: '학생 수 (명 / 실질 GRDP 10억 원)',
+  },
+};
+
+const TARGET_LABELS = {
+  '학부생': '학부생',
+  '대학원생': '대학원생',
+  '전체': '전체 (학부+대학원)',
+};
+
+let state = { indicator: '인구', target: '학부생', period: 'all' };
+let chart = null;
+
+const PERIOD_YEARS = {
+  all:    DATA.years.map(String),
+  recent: ['2023', '2024', '2025'],
+};
+
+function calcValue(region, year, indicator, target) {
+  const s = DATA.students[region][year][target];
+  const g = DATA.grdp[region][year][indicator];
+  const meta = INDICATOR_META[indicator];
+  return (meta.multiplier * s) / g;
+}
+
+function buildDatasets() {
+  const years = PERIOD_YEARS[state.period];
+  return REGIONS.map(region => ({
+    label: region,
+    data: years.map(y => calcValue(region, y, state.indicator, state.target)),
+    backgroundColor: REGION_COLORS[region].bg,
+    borderColor: REGION_COLORS[region].border,
+    borderWidth: 1.5,
+    borderRadius: 4,
+  }));
+}
+
+function renderChart() {
+  const meta = INDICATOR_META[state.indicator];
+  const years = PERIOD_YEARS[state.period];
+  const datasets = buildDatasets();
+
+  if (chart) {
+    chart.data.labels = years.map(y => y + '년');
+    chart.data.datasets = datasets;
+    chart.options.scales.y.title.text = meta.yLabel;
+    chart.update('active');
+  } else {
+    const ctx = document.getElementById('myChart').getContext('2d');
+    chart = new Chart(ctx, {
+      type: 'bar',
+      data: { labels: years.map(y => y + '년'), datasets },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              title: items => items[0].label,
+              label: item => {
+                const v = item.raw.toFixed(4);
+                return ` ${item.dataset.label}: ${v}`;
+              },
+            },
+          },
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { font: { size: 12 } },
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: meta.yLabel,
+              font: { size: 12 },
+              color: '#555',
+            },
+            ticks: {
+              font: { size: 11 },
+              callback: v => v.toFixed(v < 0.1 ? 4 : 3),
+            },
+            grid: { color: 'rgba(0,0,0,0.06)' },
+          },
+        },
+      },
+    });
+  }
+
+  // Update labels
+  const titleMap = {
+    '인구': '인구 기준',
+    '명목': '명목 GRDP 기준',
+    '실질': '실질 GRDP 기준',
+  };
+  document.getElementById('chartTitle').textContent =
+    `${titleMap[state.indicator]} · ${TARGET_LABELS[state.target]}`;
+  document.getElementById('chartSubtitle').textContent = meta.unitLabel;
+  document.getElementById('noteArea').textContent =
+    `※ ${meta.noteLabel}   |   대상: 수도권(서울대·연세대·고려대·성균관대·한양대), 동남권(부산대·경상국립대·울산과기원), 충청권(충남대·충북대·KAIST), 호남권(전남대·전북대·GIST), 대경권(경북대·포항공대)`;
+
+  // Legend
+  const la = document.getElementById('legendArea');
+  la.innerHTML = REGIONS.map(r =>
+    `<div class="legend-item"><div class="legend-dot" style="background:${REGION_COLORS[r].border}"></div><span>${r}</span></div>`
+  ).join('');
+}
+
+// Button group logic
+function setupGroup(groupId, stateKey) {
+  document.getElementById(groupId).addEventListener('click', e => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    document.querySelectorAll(`#${groupId} button`).forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state[stateKey] = btn.dataset.val;
+    renderChart();
+  });
+}
+
+setupGroup('indicatorGroup', 'indicator');
+setupGroup('targetGroup', 'target');
+setupGroup('periodGroup', 'period');
+renderChart();
+</script>
+</body>
+</html>
