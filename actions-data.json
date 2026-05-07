@@ -261,6 +261,25 @@
       "link": "",
       "createdAt": "2026-05-07T07:32:30.330Z",
       "updatedAt": "2026-05-07T07:32:30.330Z"
+    },
+    {
+      "id": "ACT-012",
+      "title": "교원 업적 평가 제도 개선",
+      "category": "제도",
+      "priority": "높음",
+      "status": "계획",
+      "org": "기획처",
+      "dueDate": "2026-06-15",
+      "description": "* 교육 영역에 AI/AX 교육 실적 기여도 항목 신설.\n* Top-Tier AI Conference 임용·승진 실적 인정",
+      "chapter": "Ch3 — AI 교육과정",
+      "collab": "",
+      "startDate": "",
+      "completedDate": "",
+      "progress": "수행 여부 검토",
+      "notes": "",
+      "link": "",
+      "createdAt": "2026-05-07T07:36:27.493Z",
+      "updatedAt": "2026-05-07T07:36:27.493Z"
     }
   ]
 }
