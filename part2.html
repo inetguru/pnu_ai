@@ -150,6 +150,7 @@
     <a href="part1.html">I. 구심점 확립</span></a>
     <a href="part2.html" class="active">II. 교육과정</a>
     <a href="part3.html">III. 생태계</a>
+    <a href="actions.html">실행 항목</a>
     <a href="QRCode.html" class="nav-qr">📱 QR</a>
   </div>
 </nav>  
@@ -1099,71 +1100,4 @@ AI를 이해·활용할 수 있는 분야별 AI 융합교과 개발</div></div>
           <div>
             <div style="font-size:12px;font-weight:700;color:var(--purple);margin-bottom:8px;">📊 학생 AI 역량 측정 및 환류</div>
             <div class="kp-box purple"><strong>AI 거점대학 공동 개발</strong>한 역량 측정 도구로 학생 AI 역량을 측정하고, 결과를 교육 프로그램에 환류</div>
-            <div style="font-size:12px;color:var(--text);line-height:1.9;margin-top:10px;padding-left:8px;">
-              ✦ 역량 측정 항목·방법: AI 거점대학 공동 개발 후 타 대학과 공유<br>
-              ✦ 입학~졸업 종단 역량 추적 (Longitudinal Tracking)<br>
-              ✦ 측정 결과 → 교육과정위원회 → 교육과정 개선 환류
-            </div>
-          </div>
-        </div>
-        <div style="background:linear-gradient(135deg,#4c1d95,#7c3aed);border-radius:12px;padding:18px 22px;color:white;margin-top:14px;">
-          <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.6);margin-bottom:10px;letter-spacing:.5px;">FEEDBACK LOOP — 교육 프로그램 환류 체계</div>
-          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;">
-            <div style="background:rgba(255,255,255,.12);border-radius:6px;padding:7px 12px;">AI 역량 측정</div>
-            <span style="color:rgba(255,255,255,.5);">→</span>
-            <div style="background:rgba(255,255,255,.12);border-radius:6px;padding:7px 12px;">결과 분석</div>
-            <span style="color:rgba(255,255,255,.5);">→</span>
-            <div style="background:rgba(255,255,255,.12);border-radius:6px;padding:7px 12px;">교육과정위원회 심의</div>
-            <span style="color:rgba(255,255,255,.5);">→</span>
-            <div style="background:rgba(255,255,255,.12);border-radius:6px;padding:7px 12px;">교육과정 개선</div>
-            <span style="color:rgba(255,255,255,.5);">→</span>
-            <div style="background:rgba(245,158,11,.3);border:1px solid rgba(245,158,11,.5);border-radius:6px;padding:7px 12px;">교육 품질 향상</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </main>
-</div>
-
-<footer>ARISE PNU AI — Part II. AI 전문·융합교육과정 설계 및 운영 (ver 0.21)</footer>
-
-<script>
-  /* ── 이미지 팝업 ── */
-  function openImgPopup(src, alt) {
-    const overlay = document.createElement('div');
-    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;cursor:zoom-out;';
-    overlay.onclick = () => overlay.remove();
-    const img = document.createElement('img');
-    img.src = src; img.alt = alt;
-    img.style.cssText = 'max-width:90vw;max-height:82vh;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.6);object-fit:contain;';
-    const cap = document.createElement('div');
-    cap.textContent = alt;
-    cap.style.cssText = 'color:rgba(255,255,255,.7);font-size:13px;';
-    const btn = document.createElement('button');
-    btn.textContent = '✕ 닫기';
-    btn.style.cssText = 'background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:white;padding:6px 18px;border-radius:6px;cursor:pointer;font-size:13px;';
-    btn.onclick = e => { e.stopPropagation(); overlay.remove(); };
-    overlay.append(img, cap, btn);
-    document.body.appendChild(overlay);
-    document.addEventListener('keydown', function esc(e) {
-      if (e.key === 'Escape') { overlay.remove(); document.removeEventListener('keydown', esc); }
-    });
-  }
-
-  const sections = document.querySelectorAll('[id]');
-  const links = document.querySelectorAll('.side-link');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if(e.isIntersecting){
-        links.forEach(l => l.classList.remove('active'));
-        const a = document.querySelector(`.side-link[href="#${e.target.id}"]`);
-        if(a) a.classList.add('active');
-      }
-    });
-  }, {threshold:0.2, rootMargin:'-70px 0px -60% 0px'});
-  sections.forEach(s => obs.observe(s));
-</script>
-</body>
-</html>                                                                    
+ 

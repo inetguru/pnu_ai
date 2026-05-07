@@ -128,6 +128,7 @@
     <a href="part1.html">I. 구심점 확립</a>
     <a href="part2.html">II. 교육과정</a>
     <a href="part3.html" class="active">III. 생태계</a>
+    <a href="actions.html">실행 항목</a>
     <a href="QRCode.html">📱 QR</a>
   </div>
 </nav>
@@ -864,72 +865,4 @@
           <div style="font-size:12px;font-weight:700;color:rgba(255,255,255,.6);margin-bottom:10px;letter-spacing:.5px;">🎯 전략 요약 — 5대 핵심 전략</div>
           <div class="grid-2" style="gap:10px;">
             <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px 14px;font-size:12px;">
-              <div style="font-weight:700;color:#e9d5ff;margin-bottom:4px;">전략 1 — 초·중·고 AI 교육 광역 공급</div>
-              <div style="color:rgba(255,255,255,.75);line-height:1.7;">부울경 3개 교육청 협약, 4개 영재·과학고 R&E, PNU AI 멘토링단 200명</div>
-            </div>
-            <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px 14px;font-size:12px;">
-              <div style="font-weight:700;color:#e9d5ff;margin-bottom:4px;">전략 2 — 예비·현직 교원 AI 역량 강화</div>
-              <div style="color:rgba(255,255,255,.75);line-height:1.7;">3트랙 연수 패키지, 「AI 교사 1만명」 동남권 핵심 위탁 기관</div>
-            </div>
-            <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px 14px;font-size:12px;">
-              <div style="font-weight:700;color:#e9d5ff;margin-bottom:4px;">전략 3 — 대학 교원 AI 교수역량 강화</div>
-              <div style="color:rgba(255,255,255,.75);line-height:1.7;">Apple·Amazon AWS 채널 활용, 도구 실무 특강 5개년 정례화</div>
-            </div>
-            <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px 14px;font-size:12px;">
-              <div style="font-weight:700;color:#e9d5ff;margin-bottom:4px;">전략 4 — 재직자 학위·비학위 통합 트랙</div>
-              <div style="color:rgba(255,255,255,.75);line-height:1.7;">3계층 구조: 첨단AI융합학과(학위) + 14개 산학과제 + 사내위탁 3,500명</div>
-            </div>
-            <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px 14px;font-size:12px;grid-column:1/-1;">
-              <div style="font-weight:700;color:#e9d5ff;margin-bottom:4px;">전략 5 — 시민·취약계층 AI 교육 (포용형 거점)</div>
-              <div style="color:rgba(255,255,255,.75);line-height:1.7;">K-MOOC·자체 LMS 단일 ID 통합, 「모두의 AI 배움터」 권역 거점 4개소, 맞춤형 5카테고리 (생성형 AI·문해력·윤리법·시니어·경단녀)</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </main>
-</div>
-
-<footer>ARISE PNU AI — Part III. 지역 AX 교육·연구 생태계 조성 (ver 0.1)</footer>
-
-<script>
-  /* ── 이미지 팝업 ── */
-  function openImgPopup(src, alt) {
-    const overlay = document.createElement('div');
-    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;cursor:zoom-out;';
-    overlay.onclick = () => overlay.remove();
-    const img = document.createElement('img');
-    img.src = src; img.alt = alt;
-    img.style.cssText = 'max-width:90vw;max-height:82vh;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.6);object-fit:contain;';
-    const cap = document.createElement('div');
-    cap.textContent = alt;
-    cap.style.cssText = 'color:rgba(255,255,255,.7);font-size:13px;';
-    const btn = document.createElement('button');
-    btn.textContent = '✕ 닫기';
-    btn.style.cssText = 'background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:white;padding:6px 18px;border-radius:6px;cursor:pointer;font-size:13px;';
-    btn.onclick = e => { e.stopPropagation(); overlay.remove(); };
-    overlay.append(img, cap, btn);
-    document.body.appendChild(overlay);
-    document.addEventListener('keydown', function esc(e) {
-      if (e.key === 'Escape') { overlay.remove(); document.removeEventListener('keydown', esc); }
-    });
-  }
-
-  /* ── 사이드바 활성 링크 ── */
-  const sections = document.querySelectorAll('[id]');
-  const links = document.querySelectorAll('.side-link');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        links.forEach(l => l.classList.remove('active'));
-        const a = document.querySelector(`.side-link[href="#${e.target.id}"]`);
-        if (a) a.classList.add('active');
-      }
-    });
-  }, {threshold: 0.2, rootMargin: '-70px 0px -60% 0px'});
-  sections.forEach(s => obs.observe(s));
-</script>
-</body>
-</html>
+              <div style="

@@ -155,6 +155,7 @@
     <a href="part1.html" class="active">I. 구심점 확립</a>
     <a href="part2.html">II. 교육과정</a>
     <a href="part3.html">III. 생태계</a>
+    <a href="actions.html">실행 항목</a>
     <a href="QRCode.html" class="nav-qr">📱 QR</a>
   </div>
 </nav>
@@ -988,56 +989,4 @@
           </div>
         </div>
         <div style="background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1px solid #fde68a;border-radius:12px;padding:14px 20px;display:flex;align-items:center;gap:12px;">
-          <span style="font-size:22px;flex-shrink:0;">🏭</span>
-          <div style="font-size:13px;color:#92400e;line-height:1.7;">
-            <strong>부·울·경 전략산업 AI 데이터 안심 처리 허브</strong><br>
-            조선·방산·기계 등 부·울·경 핵심 전략산업 기업 데이터를 안전하게 처리하는 AI 안심존을 제공합니다. X-모빌리티 대학과 연계한 M.AX 연구, 지역 스타트업·중소기업 대상 AI 컴퓨팅 바우처를 지원합니다.
-          </div>
-        </div>
-      </div><!-- /infra-3 -->
-    </div><!-- /block #infra -->
-
-  </main>
-</div><!-- /layout -->
-
-<footer>ARISE PNU AI — Part I. 대학 AI 교육·연구의 구심점 확립 및 기반 확충</footer>
-
-<script>
-  /* ── 사이드바 active 스크롤 추적 ── */
-  const sections = document.querySelectorAll('[id]');
-  const links    = document.querySelectorAll('.side-link');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        links.forEach(l => l.classList.remove('active'));
-        const a = document.querySelector(`.side-link[href="#${e.target.id}"]`);
-        if (a) a.classList.add('active');
-      }
-    });
-  }, {threshold: 0.2, rootMargin: '-70px 0px -60% 0px'});
-  sections.forEach(s => obs.observe(s));
-
-  /* ── 이미지 팝업 ── */
-  function openImgPopup(src, alt) {
-    const overlay = document.createElement('div');
-    overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;cursor:zoom-out;';
-    overlay.onclick = () => overlay.remove();
-    const img = document.createElement('img');
-    img.src = src; img.alt = alt;
-    img.style.cssText = 'max-width:90vw;max-height:82vh;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.6);object-fit:contain;';
-    const cap = document.createElement('div');
-    cap.textContent = alt;
-    cap.style.cssText = 'color:rgba(255,255,255,.7);font-size:13px;';
-    const btn = document.createElement('button');
-    btn.textContent = '✕ 닫기';
-    btn.style.cssText = 'background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:white;padding:6px 18px;border-radius:6px;cursor:pointer;font-size:13px;';
-    btn.onclick = e => { e.stopPropagation(); overlay.remove(); };
-    overlay.append(img, cap, btn);
-    document.body.appendChild(overlay);
-    document.addEventListener('keydown', function esc(e) {
-      if (e.key === 'Escape') { overlay.remove(); document.removeEventListener('keydown', esc); }
-    });
-  }
-</script>
-</body>
-</html>
+          <span styl
