@@ -166,6 +166,25 @@
       "link": "",
       "createdAt": "2026-05-07T07:15:46.828Z",
       "updatedAt": "2026-05-07T07:15:46.828Z"
+    },
+    {
+      "id": "ACT-007",
+      "title": "AI/AX 중점교원 제도 마련",
+      "category": "제도",
+      "priority": "높음",
+      "status": "계획",
+      "org": "기획처",
+      "dueDate": "2026-05-27",
+      "description": "AI/AX 중점교원 제도란 AI 기술을 전공 연구·교육에 실질적으로 접목한 교원을 공식 인정하고 지원하는 체계 (제안 웹 페이지 참고 II.교육과정, Section 2. 교원)",
+      "chapter": "Ch3 — AI 교육과정",
+      "collab": "",
+      "startDate": "",
+      "completedDate": "",
+      "progress": "수행 여부 검토",
+      "notes": "",
+      "link": "",
+      "createdAt": "2026-05-07T07:17:52.897Z",
+      "updatedAt": "2026-05-07T07:17:52.897Z"
     }
   ]
 }
