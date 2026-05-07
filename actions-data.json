@@ -242,6 +242,25 @@
       "link": "https://inetguru.github.io/pnu_ai/image/AX%EA%B5%90%EA%B3%BC%EC%9D%B4%EC%88%98%EA%B5%AC%EC%A1%B0%EC%99%80%ED%99%9C%EC%84%B1%ED%99%94%EB%B0%A9%EC%95%88.png",
       "createdAt": "2026-05-07T07:30:20.863Z",
       "updatedAt": "2026-05-07T07:30:20.863Z"
+    },
+    {
+      "id": "ACT-011",
+      "title": "AX-PBL 교과목 신설과 전공 학점 인정 방안 검토",
+      "category": "교육과정",
+      "priority": "중간",
+      "status": "계획",
+      "org": "기획처",
+      "dueDate": "2026-06-10",
+      "description": "AI융합교육원 또는 장영실AI융합연구원이 개설, 운영 관리하는 가칭 AX-PBL 교과목 신설\n산업 데이터 기반 AI 문제해결 프로젝트 I & II. 최대 6학점.\n개별 학과의 전공필수형 캡스톤디자인 교과목을 AX-PBL로 대체 가능하도록 제도 개편",
+      "chapter": "Ch3 — AI 교육과정",
+      "collab": "",
+      "startDate": "",
+      "completedDate": "",
+      "progress": "수행 여부 검토",
+      "notes": "",
+      "link": "",
+      "createdAt": "2026-05-07T07:32:30.330Z",
+      "updatedAt": "2026-05-07T07:32:30.330Z"
     }
   ]
 }
