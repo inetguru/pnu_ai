@@ -204,6 +204,25 @@
       "link": "",
       "createdAt": "2026-05-07T07:22:16.738Z",
       "updatedAt": "2026-05-07T07:22:16.738Z"
+    },
+    {
+      "id": "ACT-009",
+      "title": "기존 융합,연계전공, 마이크로디그리 등 수행 현황 파악",
+      "category": "교육과정",
+      "priority": "높음",
+      "status": "계획",
+      "org": "기획처",
+      "dueDate": "2026-05-18",
+      "description": "융합, 연계전공, 마이크로디그리  신청, 이수 학생 수 등 현황 조사\n융합 전공의 무분별한 신설 보다는 AI/AX 관련 기존 융합전공을 재편을 위한 기초 자료로 활용",
+      "chapter": "Ch3 — AI 교육과정",
+      "collab": "",
+      "startDate": "",
+      "completedDate": "",
+      "progress": "수행 여부 검토",
+      "notes": "",
+      "link": "",
+      "createdAt": "2026-05-07T07:26:35.935Z",
+      "updatedAt": "2026-05-07T07:26:35.935Z"
     }
   ]
 }
