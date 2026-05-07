@@ -500,7 +500,7 @@ async function loadData() {
     if (res.ok) {
       const json = await res.json();
       S.fileSha = json.sha;
-      S.data = JSON.parse(atob(json.content.replace(/\n/g,'')));
+      S.data = JSON.parse(b64DecodeUTF8(json.content));
       return;
     }
   } catch(e) {}
@@ -699,7 +699,7 @@ async function doLogin() {
     if (!res.ok) throw new Error(`오류 ${res.status}`);
     const json = await res.json();
     S.fileSha = json.sha;
-    S.data = JSON.parse(atob(json.content.replace(/\n/g,'')));
+    S.data = JSON.parse(b64DecodeUTF8(json.content));
   } catch(e) {
     showToast('토큰이 올바르지 않거나 권한이 없습니다.','error');
     return;
@@ -1002,6 +1002,14 @@ function showToast(msg, type='') {
   el.className = 'toast show' + (type ? ' '+type : '');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+/* base64(UTF-8) → JS 문자열 (한국어 등 멀티바이트 대응) */
+function b64DecodeUTF8(b64) {
+  const bytes = atob(b64.replace(/\n/g,''));
+  const uint8 = new Uint8Array(bytes.length);
+  for (let i = 0; i < bytes.length; i++) uint8[i] = bytes.charCodeAt(i);
+  return new TextDecoder('utf-8').decode(uint8);
 }
 
 /* ── START ── */
