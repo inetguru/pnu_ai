@@ -128,6 +128,25 @@
       "link": "",
       "createdAt": "2026-05-07T07:07:11.160Z",
       "updatedAt": "2026-05-07T07:07:11.160Z"
+    },
+    {
+      "id": "ACT-005",
+      "title": "협조 공문 준비 - 대학원 현황 파악 및 Bottom Up 발전 계획 요청",
+      "category": "학내협력",
+      "priority": "중간",
+      "status": "계획",
+      "org": "기획처",
+      "dueDate": "2026-05-20",
+      "description": "대학원 학과 / BK 연구사업단에 협조 공문 발송 준비 \n1. 현황 파악(대학원생 수 변화, 전임교원 1인당 대학원생 수)\n2. 대학원생 미지도 교원 현황 파악·원인 분석, \n3. BK5·AI/AX 시대에 대응한 대학원 발전 계획 요청",
+      "chapter": "Ch1 — 대학원 현황 및 발전 계획",
+      "collab": "",
+      "startDate": "",
+      "completedDate": "",
+      "progress": "수행 여부 검토",
+      "notes": "",
+      "link": "",
+      "createdAt": "2026-05-07T07:11:20.811Z",
+      "updatedAt": "2026-05-07T07:11:20.811Z"
     }
   ]
 }
