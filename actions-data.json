@@ -185,6 +185,25 @@
       "link": "",
       "createdAt": "2026-05-07T07:17:52.897Z",
       "updatedAt": "2026-05-07T07:17:52.897Z"
+    },
+    {
+      "id": "ACT-008",
+      "title": "우수 교원 확보 제도 검토 - AI대학신설안",
+      "category": "제도",
+      "priority": "중간",
+      "status": "계획",
+      "org": "기획처",
+      "dueDate": "2026-06-30",
+      "description": "(가칭) AI대학신설안에서 제시한 다음 제도에 대한 검토 및 도입\n1. 산학일체형 교수제\n2. AI Clinic Model - 의대 수당 준용\n3. 창업 휴직형 교수제 \n     - 산단장님이 이미 시행되고 있다고 하셨음. 단 창업성과의 연구실적 인정 등 내용 개편 여부 검토\n4. 다중트랙제도",
+      "chapter": "Ch3 — AI 교육과정",
+      "collab": "",
+      "startDate": "",
+      "completedDate": "",
+      "progress": "수행 여부 검토",
+      "notes": "",
+      "link": "",
+      "createdAt": "2026-05-07T07:22:16.738Z",
+      "updatedAt": "2026-05-07T07:22:16.738Z"
     }
   ]
 }
