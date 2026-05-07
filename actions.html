@@ -451,7 +451,7 @@ const CONFIG = {
   owner:    'inetguru',
   repo:     'pnu_ai',
   branch:   'main',
-  filePath: '04_Site/actions-data.json',
+  filePath: 'actions-data.json',
   dataUrl:  './actions-data.json'   // 상대경로: GitHub Pages에서 바로 읽기
 };
 
@@ -694,7 +694,9 @@ async function doLogin() {
       `https://api.github.com/repos/${CONFIG.owner}/${CONFIG.repo}/contents/${CONFIG.filePath}`,
       { headers: { 'Authorization':`token ${pat}`, 'Accept':'application/vnd.github.v3+json' } }
     );
-    if (!res.ok) throw new Error('인증 실패');
+    if (res.status === 401 || res.status === 403) throw new Error('토큰 인증 실패 (권한을 확인하세요)');
+    if (res.status === 404) throw new Error('파일을 찾을 수 없습니다 (filePath 설정 확인)');
+    if (!res.ok) throw new Error(`오류 ${res.status}`);
     const json = await res.json();
     S.fileSha = json.sha;
     S.data = JSON.parse(atob(json.content.replace(/\n/g,'')));
@@ -996,14 +998,4 @@ document.addEventListener('keydown', e => {
 let toastTimer;
 function showToast(msg, type='') {
   const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = 'toast show' + (type ? ' '+type : '');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
-}
-
-/* ── START ── */
-init();
-</script>
-</body>
-</html>
+  el.textConte
